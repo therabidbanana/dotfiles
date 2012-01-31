@@ -1,0 +1,86 @@
+
+" Loaded after .vimrc, so anything in here will override the .vimrc settings
+
+" User preferences
+" -----------------------------------------------------------------------------
+let mapleader = ','
+
+" User plugin configurations
+" -----------------------------------------------------------------------------
+let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
+" let g:MarkdownPreviewUserStyles=$HOME.'/path/to/user/styles/'
+" let g:RefreshRunningBrowserDefault = 'chrome'
+" let g:snips_author = 'Your Name'
+
+
+" User key mapping
+" -----------------------------------------------------------------------------
+"
+" Inserts the path of the currently edited file into a command
+" Command mode: Ctrl+P
+cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+
+nnoremap ; :
+
+
+" Lazy escape calls:
+" inoremap jj <ESC>
+" inoremap jk <Esc>
+vnoremap <Del> <esc>
+noremap! <Del> <esc>
+noremap <Del> <esc>
+snoremap <Del> <esc>
+vnoremap <S-Del> <esc>
+noremap! <S-Del> <esc>
+noremap <S-Del> <esc>
+snoremap <S-Del> <esc>
+
+" User leader mapping
+" -----------------------------------------------------------------------------
+
+" Git Status toggle
+map <Leader>g :Gstatus<CR>
+
+" NerdTree Toggle
+map <leader>n :NERDTreeToggle<cr>
+
+" YankRing Setup
+nnoremap <leader>y :YRShow<cr>
+
+" ZoomWin configuration
+map <Leader><Leader> :ZoomWin<CR>
+
+map <silent> <Leader>f :LustyJuggler<CR>
+map <silent> <Leader>e :LustyFilesystemExplorer<CR>
+map <silent> <Leader>b :LustyBufferExplorer<CR>
+" nnoremap <silent> <F3> :TlistToggle<cr>
+" ino <silent> <F5> <c-r>=ShowAvailableSnips()<cr>
+
+
+" User file type utility settings
+" -----------------------------------------------------------------------------
+
+
+" User file handling and settings
+" -----------------------------------------------------------------------------
+
+
+" User themes and GUI settings
+" -----------------------------------------------------------------------------
+
+" colorscheme colorblind
+" colorscheme bloodshot
+" colorscheme cataracts
+" colorscheme snowblind
+
+let g:solarized_contrast="high"
+set background=dark
+colorscheme solarized
+
+
+" User GUI specific settings (could be in .gvimrc.local)
+" -----------------------------------------------------------------------------
+if has('gui_running')
+  set guioptions=aAce
+  set guifont=Monaco:h13
+endif
