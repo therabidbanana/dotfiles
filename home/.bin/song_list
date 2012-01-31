@@ -1,0 +1,12 @@
+#!/bin/bash
+LAST_SONG=""
+while true; do
+	PREV=$LAST_SONG
+    LAST_SONG=`/Users/therabidbanana/bin/which_song`
+	if [ "$PREV" = "$LAST_SONG" ]; then
+		echo -ne "="
+	else
+		echo -e "$LAST_SONG\n"
+	fi    
+	sleep 15
+done

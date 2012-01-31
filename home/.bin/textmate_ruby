@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+source ~/.rvm/scripts/rvm
+
+if [[ -s "${TM_PROJECT_DIRECTORY}/.rvmrc" ]]
+then
+  source "${TM_PROJECT_DIRECTORY}/.rvmrc"
+fi
+
+`which ruby` $*

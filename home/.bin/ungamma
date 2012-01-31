@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for infile in *; do
+  /bin/mv ${infile} ${infile}~
+  /usr/local/bin/pngcrush -rem gAMA -rem cHRM -rem iCCP -rem sRGB \
+    ${infile}~ ${infile}
+done

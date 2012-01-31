@@ -1,0 +1,20 @@
+#!/bin/bash
+
+/opt/local/bin/fortune
+echo "%"
+/opt/local/bin/fortune
+echo "%"
+/opt/local/bin/fortune
+echo "%"
+/opt/local/bin/fortune
+echo "%"
+/opt/local/bin/fortune
+echo "%"
+/opt/local/bin/fortune
+echo "%"
+/opt/local/bin/fortune
+while true; do
+    echo "%"
+    /opt/local/bin/fortune -as
+    sleep 120
+done

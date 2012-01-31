@@ -1,0 +1,14 @@
+#!/bin/sh
+exec <"$0" || exit; read v; read v; exec arch -i386 /usr/bin/osascript - "$@"; exit
+
+if appIsRunning("iTunes") then
+  tell application "iTunes"
+    if player state is playing then
+      name of current track & " - " & artist of current track
+    end if
+  end tell
+end if
+
+on appIsRunning(appName)
+	tell application "System Events" to (name of processes) contains appName
+end appIsRunning

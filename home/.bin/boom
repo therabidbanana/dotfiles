@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DIR=`pwd`
+
+cd ~/bin/local-php-web-server
+./startup.sh $DIR

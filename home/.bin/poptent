@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# rvm essentially has 2 methods of invocation:
+#
+# 1.  script, ~/.rvm/bin/rvm is a *script* to execute rvm commands outside of the env
+#     environment. This method is an 'external script' and thus RVM would not be able
+#     to manage the parent shell's environment.
+#
+# 2.  function, sourcing scripts/rvm loads rvm() as a shell *function* into a 
+#     specific environment. Doing this will allow RVM to manage the shell environment.
+#
+#  If the above does not make sense to you (I am assuming that several people will read
+#  this) please hop on IRC and let's chat.
+#
+# As an additional note, rvm has two verbosity modes
+#
+# $ rvm use X  # This will output 'now using X' and is 
+#              # and is not necessairly meant for scripting.
+#
+# $ rvm X      # This will use X but not output anything
+#              # and is meant for use with scripting.
+#
+
+source $HOME/.bashrc # if rvm is sourced there.
+# alternatively you can: source $HOME/.rvm/scripts/rvm
+
+# Select 1.8.7
+rvm use 1.8.7
+
+sleep 1 && open http://localhost:4000 &
+jekyll --server 

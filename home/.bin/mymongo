@@ -1,0 +1,2 @@
+#!/bin/bash
+mongod run --config /usr/local/Cellar/mongodb/1.4.4-x86_64/mongod.conf

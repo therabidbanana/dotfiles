@@ -1,0 +1,73 @@
+#!/bin/bash
+
+git_is_dirty(){
+  if [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]]; then 
+    echo "1"
+  else
+    echo "0"
+  fi
+}
+
+DIR=`pwd`
+also=""
+while getopts  "f" flag
+do
+  FETCH=1
+done
+
+for f in `find $DIR -type d -maxdepth 1`
+do
+  if [ -d "$f/.git" ]; then
+    cd $f
+    f=`basename $f`
+    
+
+    # remotehash=`git show -s --format=%H heroku/master`
+    # localhash=`git show -s --format=%H master`
+    # work out the current branch name
+    currentbranch=$(expr $(git symbolic-ref HEAD) : 'refs/heads/\(.*\)')
+    [ -n "$currentbranch" ] || die "You don't seem to be on a branch"
+    # look up this branch in the configuration
+    remote="$(git config branch.$currentbranch.remote)"
+    if [ -z "$remote" ]; then
+      remote="$(git remote)"
+      set -- $remote
+      remote=$1
+    fi
+    
+    if [[ $(git_is_dirty) -eq "1" ]]; then
+      dirty="${COLOR_RED}DIRTY"
+    else
+      dirty="${COLOR_GREEN}CLEAN"
+    fi
+    
+    if [ ! -z "$remote" ]; then
+      # Warn about default remote
+      also="$also\nDefault remote for $f not set. Run git branch --set-upstream master $remote/master"
+      
+      if [[ $FETCH -eq 1 ]]; then
+        git fetch $remote --quiet
+      fi
+      
+      # remote_ref=$(git config branch.$currentbranch.merge)
+      # convert the remote ref into the tracking ref... this is a hack
+      # remote_branch=$(expr $remote_ref : 'refs/heads/\(.*\)')
+      # now $tracking_branch should be the local ref tracking HEAD
+    
+    
+      if [ $(git rev-list $remote/master..HEAD | wc -l) -eq 0 ]; then
+        sync="${COLOR_GREEN}SYNCED"
+      else
+        count=$(git rev-list $remote/master..HEAD | wc -l)
+        count=$(echo $count)
+        sync="${COLOR_RED}UNSYNCED[$count]"
+      fi
+      
+      printf "%-25b%-10b %b\n" "$f" "$dirty" "$sync${COLOR_NC}"
+    else
+      sync="${COLOR_GRAY}NO REMOTE"
+      printf "%-25b%-10b %b\n" "$f" "$dirty" "$sync${COLOR_NC}"
+    fi
+fi                                                                                               
+done
+echo -e $also

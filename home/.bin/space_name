@@ -1,0 +1,17 @@
+#!/bin/bash
+SPACE=`/Users/therabidbanana/bin/whichspace`
+
+case $SPACE in 
+"1")
+    echo "Web";;
+"2")
+    echo "Programming";;
+"3")
+    echo "Mail";;
+"4")
+    echo "Documents";;
+"5")
+    echo "VM";;
+"6")
+    echo "Other";;
+esac
