@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------
 #  OMG! Colors! ---------------------------------------------------
 # -----------------------------------------------------------------
-  export TERM=xterm-color
+  # export TERM=xterm-color
   export CLICOLOR=1
   # Linux only:
   # export LS_COLORS='di=32:fi=34:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rb=90'
@@ -24,21 +24,30 @@
   export COLOR_DARK_GRAY='\033[1;30m'
   export COLOR_LIGHT_GRAY='\033[0;37m'
   alias colorslist="set | egrep 'COLOR_\w*'"  # lists all the colors
-  
+  alias ttytter="ttytter -verify -ansi -urlopen='open %U'"  # ttytter in color
+
   alias ls='ls -G'  # OS-X SPECIFIC - the -G command in OS-X is for colors, in Linux it's no groups
   export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 
 # -----------------------------------------------------------------
 # Command Prompt --------------------------------------------------
 # -----------------------------------------------------------------
-export PS1="\[${COLOR_BLUE}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path 
+export PS1="\[${COLOR_BLUE}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path
 __git_ps1(){ echo ""; }
-__task_count(){ 
+__task_count(){
   TASKS=$(t | wc -l | sed -e's/ *//')
   if [[ $TASKS -eq "0" ]]; then
-    echo "" 
+    echo ""
   else
-    echo "[$TASKS] "
+    echo "[$TASKS]|"
+  fi
+}
+__dask_count(){
+  DASKS=$(d | wc -l | sed -e's/ *//')
+  if [[ $DASKS -eq "0" ]]; then
+    echo ""
+  else
+    echo "[$DASKS]|"
   fi
 }
 # Allow git bash completion
@@ -47,7 +56,7 @@ if [ -f ~/.bin/git-completion.sh ]; then
 fi
 
 git_dirty_flag() {
-  if [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]]; then 
+  if [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]]; then
     echo -e "${COLOR_RED}"
   else
     echo -e "${COLOR_DARK_GRAY}"
@@ -56,7 +65,7 @@ git_dirty_flag() {
 
 prompt_func() {
     previous_return_value=$?;
-    prompt="\[${COLOR_RED}\]$(__task_count)\[${COLOR_CYAN}\]\$(~/.rvm/bin/rvm-prompt u g) \[${COLOR_GREEN}\]\w\[$(git_dirty_flag)\]$(__git_ps1) \[${COLOR_NC}\]"
+    prompt="\[${COLOR_RED}\]$(__dask_count)\[${COLOR_PURPLE}\]$(__task_count)\[${COLOR_CYAN}\]\$(~/.rvm/bin/rvm-prompt u g) \[${COLOR_GREEN}\]\w\[$(git_dirty_flag)\]$(__git_ps1) \[${COLOR_NC}\]"
     #prompt="\033]0;${PWD}\007\[${COLOR_GREEN}\]\w\[${COLOR_GRAY}\]$(__git_ps1)\[${COLOR_NC}\] "
     #prompt="\[${COLOR_GREEN}\]\$(rvm-prompt u g)\[${COLOR_GREEN}\]\w\[${COLOR_GRAY}\]$(__git_ps1)\[${COLOR_YELLOW}\]$(git_dirty_flag)\[${COLOR_NC}\] "
 
@@ -72,15 +81,15 @@ PROMPT_COMMAND=prompt_func
 export PS2='> '    # Secondary prompt
 export PS3='#? '   # Prompt 3
 export PS4='+'     # Prompt 4
-  
+
 go_superuser(){
   export PS1="\[${COLOR_RED}\]\u:\w\[${COLOR_GRAY}\] > \[${COLOR_NC}\]"
 }
-  
+
 # -----------------------------------------------------------------
 # Useful Aliases --------------------------------------------------
 # -----------------------------------------------------------------
-  
+
   alias su="go_superuser; su"
   alias sudo="go_superuser; sudo"
   alias ..='cd ..'
@@ -90,7 +99,7 @@ go_superuser(){
   alias lla='ls -lah'
   # alias fortune='echo -ne "${COLOR_CYAN}"; fortune; echo -ne "${COLOR_NC}"'
   alias clr='clear; echo -ne "${COLOR_CYAN}"; fortune; echo -ne "${COLOR_NC}"'
-  
+
   alias g='grep -i'  #case insensitive grep
   alias f='find . -iname'
   alias ducks='du -cks * | sort -rn|head -11' # Lists the size of all the folders and files
@@ -98,12 +107,14 @@ go_superuser(){
   alias systail='tail -f /var/log/system.log'
   alias df='df -h' # Show disk usage
   alias m='more'
+  alias tmux="TERM=screen-256color-bce tmux"
 
-  alias t='python ~/.bin/t.py --task-dir ~/Desktop --list todo.txt --delete-if-empty'
-  alias d='python ~/.bin/t.py --task-dir ~ --list to-watch.txt --delete-if-empty'
-  
+  alias t='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list todo.txt --delete-if-empty'
+  alias w='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list to-watch.txt --delete-if-empty'
+  alias d='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list dtime-todo.txt --delete-if-empty'
+
   cl() { cd $1; ls -la; }
-  
+
   # Shows most used commands, cool script I got this from:
   # http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
   alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
@@ -115,8 +126,8 @@ go_superuser(){
   killhard() {
       kill -9 "$1"
   }
-  
-  
+
+
 # -----------------------------------------------------------------
 # Settings --------------------------------------------------------
 # -----------------------------------------------------------------
@@ -125,23 +136,25 @@ go_superuser(){
 
   export EDITOR='mvim -f'
   # export AUTOFEATURE=true
+  export VMAIL_BROWSER='elinks'
+  export VMAIL_HTML_PART_READER='elinks -dump'
 
-# -----------------------------------------------------------------
+ #-----------------------------------------------------------------
 # Bash Options ----------------------------------------------------
 # -----------------------------------------------------------------
   export HISTCONTROL=ignoredups
   #export HISTCONTROL=erasedups
   export HISTFILESIZE=3000
-  export HISTIGNORE="ls:cd:[bf]g:exit:..:...:ll:lla"
+  export HISTIGNORE="ls:cd:[bf]g:exit:..:...:ll:lla:h:hf:history"
   alias h=history
-  hf(){ 
+  hf(){
     grep "$@" ~/.bash_history
   }
-  
+
   # bash completion settings (actually, these are readline settings)
   bind "set completion-ignore-case on" # This ignores case in bash completion
   bind "set bell-style none" # No bell, because it's damn annoying
-  bind "set show-all-if-ambiguous On" # this allows you to automatically show completion 
+  bind "set show-all-if-ambiguous On" # this allows you to automatically show completion
 
 
   if [ -f /opt/local/etc/bash_completion ]; then
@@ -172,7 +185,7 @@ github_issues_list(){
 
   alias show='cat ~/.dirs'
   save (){
-    command sed "/!$/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"=\"`pwd`\" >> ~/.dirs; source ~/.dirs ; 
+    command sed "/!$/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"=\"`pwd`\" >> ~/.dirs; source ~/.dirs ;
   }
   source ~/.dirs  # Initialization for the above 'save' facility: source the .sdirs file
   shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
@@ -184,3 +197,5 @@ export CDPATH=.:~/Desktop
 # -----------------------
 if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

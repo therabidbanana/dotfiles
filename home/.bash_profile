@@ -17,6 +17,10 @@ if [ -d ~/bin ]; then
   export PATH=~/bin:$PATH  # add your bin folder to the path, if you have it.  It's a good place to add all your scripts
 fi
 
+if [ -d ~/.bin ]; then
+  export PATH=~/.bin:$PATH  # add your bin folder to the path, if you have it.  It's a good place to add all your scripts
+fi
+
 if [ -d ~/cl/bin ]; then
   export PATH=~/cl/bin:$PATH  # add your bin folder to the path, if you have it
 fi
@@ -28,8 +32,8 @@ source ~/.bashrc
 
 
 # Startup Greeting ------------------------------------------------
-if [ -x /opt/local/bin/fortune ]; then
-    echo -e "$COLOR_CYAN`/opt/local/bin/fortune -sae`$COLOR_NC\n"  
+if [ -x /usr/local/bin/fortune ]; then
+    echo -e "$COLOR_CYAN`/usr/local/bin/fortune -sae`$COLOR_NC\n"  
 fi
     echo -ne "${COLOR_GREEN}Time is: "; date
     echo -e "${COLOR_LIGHT_GREEN}(`ddate`)"

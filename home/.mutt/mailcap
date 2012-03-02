@@ -1,0 +1,14 @@
+
+# Images
+image/jpeg; /Users/david/.mutt/view_attachment.sh %s
+image/pjpeg; /Users/david/.mutt/view_attachment.sh %s
+image/png; /Users/david/.mutt/view_attachment.sh %s
+image/gif; /Users/david/.mutt/view_attachment.sh %s
+#
+# # PDF
+application/pdf; /Users/david/.mutt/view_attachment.sh %s pdf
+#
+# # HTML
+# # -- always use lynx; it's gay to use safari for this
+text/html; elinks -force-html %s; copiousoutput
+text/html; /Users/david/.mutt/view_attachment.sh %s html
