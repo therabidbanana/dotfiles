@@ -1,10 +1,9 @@
 # -----------------------------------------------------------------
 #  OMG! Colors! ---------------------------------------------------
 # -----------------------------------------------------------------
-  # export TERM=xterm-color
-  export CLICOLOR=1
   # Linux only:
-  # export LS_COLORS='di=32:fi=34:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rb=90'
+
+  export LS_COLORS='di=32:fi=34:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rb=90'
   export COLOR_NC='\033[0m' # No Color
   export COLOR_WHITE='\033[1;37m'
   export COLOR_BLACK='\033[0;30m'
@@ -24,9 +23,15 @@
   export COLOR_DARK_GRAY='\033[1;30m'
   export COLOR_LIGHT_GRAY='\033[0;37m'
   alias colorslist="set | egrep 'COLOR_\w*'"  # lists all the colors
-  alias ttytter="ttytter -verify -ansi -urlopen='open %U'"  # ttytter in color
+  export TERM=xterm-256color
+  export CLICOLOR=1
+  alias ttytter="ttytter -verify -ansi -urlopen='echo %U'"  # ttytter in color
+  # For mutt
+  export COLORFGBG="default;default"
 
-  alias ls='ls -G'  # OS-X SPECIFIC - the -G command in OS-X is for colors, in Linux it's no groups
+  alias ls='ls -G --color'  # OS-X SPECIFIC - the -G command in OS-X is for colors, in Linux it's no groups
+  alias finch='TERM=screen finch'
+  alias tmux='TERM=screen-256color tmux -2 -u'
   export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 
 # -----------------------------------------------------------------
@@ -98,7 +103,7 @@ go_superuser(){
   alias la='ls -a'
   alias lla='ls -lah'
   # alias fortune='echo -ne "${COLOR_CYAN}"; fortune; echo -ne "${COLOR_NC}"'
-  alias clr='clear; echo -ne "${COLOR_CYAN}"; fortune; echo -ne "${COLOR_NC}"'
+  alias clr='clear; echo -ne "%{$fg[cyan]%}"; fortune; echo -ne "${COLOR_NC}"'
 
   alias g='grep -i'  #case insensitive grep
   alias f='find . -iname'
@@ -107,7 +112,6 @@ go_superuser(){
   alias systail='tail -f /var/log/system.log'
   alias df='df -h' # Show disk usage
   alias m='more'
-  alias tmux="TERM=screen-256color-bce tmux"
 
   alias t='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list todo.txt --delete-if-empty'
   alias w='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list to-watch.txt --delete-if-empty'

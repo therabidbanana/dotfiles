@@ -6,7 +6,7 @@ export PLATFORM="$MACHINE-$OS-$OSVERSION"
 
 # Path ------------------------------------------------------------
 if [ "$OS" = "darwin" ] ; then
-  
+
   export PATH="/usr/local/Cellar/python/2.7.1/bin:/usr/local/bin:/usr/local/sbin:$PATH"
   export PATH="$PATH:/usr/local/mysql/bin:/Users/therabidbanana/.gem/ruby/1.8/bin"
   # export PATH=/opt/local/bin:/opt/local/sbin:$PATH  # OS-X Specific, with MacPorts and MySQL installed
@@ -33,7 +33,10 @@ source ~/.bashrc
 
 # Startup Greeting ------------------------------------------------
 if [ -x /usr/local/bin/fortune ]; then
-    echo -e "$COLOR_CYAN`/usr/local/bin/fortune -sae`$COLOR_NC\n"  
+    echo -e "$COLOR_CYAN`/usr/local/bin/fortune -sae`$COLOR_NC\n"
+fi
+if [ -x /usr/bin/fortune ]; then
+    echo -e "$COLOR_CYAN`/usr/bin/fortune -sae`$COLOR_NC\n"
 fi
     echo -ne "${COLOR_GREEN}Time is: "; date
     echo -e "${COLOR_LIGHT_GREEN}(`ddate`)"
@@ -41,16 +44,16 @@ fi
 
 
 # Notes: ----------------------------------------------------------
-# When you start an interactive shell (log in, open terminal or iTerm in OS X, 
+# When you start an interactive shell (log in, open terminal or iTerm in OS X,
 # or create a new tab in iTerm) the following files are read and run, in this order:
 #     profile
 #     bashrc
 #     .bash_profile
 #     .bashrc (only because this file is run (sourced) in .bash_profile)
 #
-# When an interactive shell, that is not a login shell, is started 
-# (when you run "bash" from inside a shell, or when you start a shell in 
-# xwindows [xterm/gnome-terminal/etc] ) the following files are read and executed, 
+# When an interactive shell, that is not a login shell, is started
+# (when you run "bash" from inside a shell, or when you start a shell in
+# xwindows [xterm/gnome-terminal/etc] ) the following files are read and executed,
 # in this order:
 #     bashrc
 #     .bashrc
