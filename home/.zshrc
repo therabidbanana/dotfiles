@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="blinks"
+ZSH_THEME="blinks2"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -39,13 +39,19 @@ fi
 # Customize to your needs...
 export PATH=$HOME/.rvm/bin:$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/opt/bin:/usr/x86_64-pc-linux-gnu/gcc-bin/4.5.3
 
+~/.bin/solarized.sh
+
 # Set stuff for colors
 export TERM=xterm-256color
+export LC_ALL=en_US.utf8
+export COLORFGBG="default;default"
+export DISABLE_AUTO_TITLE="true"
 export CLICOLOR=1
 alias ttytter="ttytter -verify -ansi -urlopen='echo %U'"  # ttytter in color
 # For mutt
 export COLORFGBG="default;default"
 
+alias weather='telnet rainmaker.wunderground.com'
 alias ls='ls -G --color'  # OS-X SPECIFIC - the -G command in OS-X is for colors, in Linux it's no groups
 alias ghi='ghi --no-pager'
 alias finch='TERM=screen finch'
@@ -65,6 +71,7 @@ alias m='more'
 alias t='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list todo.txt --delete-if-empty'
 alias w='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list to-watch.txt --delete-if-empty'
 alias d='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list dtime-todo.txt --delete-if-empty'
+alias g='git'
 alias untar="tar xvzf"
 alias bi="bundle install"
 
@@ -95,6 +102,7 @@ alias ...="cd ..; cd .."
 # RVM Support
 # -----------------------
 if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+if [[ -s $HOME/.nvm/nvm.sh ]] ; then source $HOME/.nvm/nvm.sh ; fi
 
 # Startup Greeting ------------------------------------------------
 if [ -x /usr/local/bin/fortune ]; then
@@ -105,3 +113,4 @@ if [ -x /usr/bin/fortune ]; then
 fi
     echo -ne "$fg[green]"; ddate
     echo -ne "$reset_color"
+

@@ -1,5 +1,15 @@
+set encoding=utf-8
 
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_colorscheme='skwp'
 " Loaded after .vimrc, so anything in here will override the .vimrc settings
+
+set scrolloff=8 "Start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
+
+set colorcolumn=80
+highlight ColorColumn ctermbg=0
 
 " User preferences
 " -----------------------------------------------------------------------------
@@ -35,8 +45,42 @@ noremap! <S-Del> <esc>
 noremap <S-Del> <esc>
 snoremap <S-Del> <esc>
 
+" Paste toggle
+inoremap <F2> <Esc>:set paste!<cr>
+set pastetoggle=<F2>
+
+
+
 " User leader mapping
 " -----------------------------------------------------------------------------
+" Support with vimux
+ruby << EOF
+class Object
+  def flush; end unless Object.new.respond_to?(:flush)
+end
+EOF
+" Run the current file with rspec
+map <Leader>rb :wa<CR>:call RunVimTmuxCommand("clear; rspec " . bufname("%") . ";")<CR>
+
+" Prompt for a command to run
+map <Leader>rp :wa<CR>:PromptVimTmuxCommand<CR>
+"
+" " Run last command executed by RunVimTmuxCommand
+map <Leader>rl :wa<CR>:RunLastVimTmuxCommand<CR>
+"
+" " Inspect runner pane
+map <Leader>ri :wa<CR>:InspectVimTmuxRunner<CR>
+"
+" " Close all other tmux panes in current window
+map <Leader>rx :CloseVimTmuxPanes<CR>
+"
+" " Close vim tmux runner opened by RunVimTmuxCommand
+map <Leader>rq :CloseVimTmuxRunner<CR>
+"
+" " Interrupt any command running in the runner pane
+map <Leader>rs :InterruptVimTmuxRunner<CR>
+" " Interrupt any command running in the runner pane
+map <Leader>rr :InterruptVimTmuxRunner<CR>:wa<CR>:RunLastVimTmuxCommand<CR>
 
 " Git Status toggle
 map <Leader>g :Gstatus<CR>
@@ -51,6 +95,7 @@ nnoremap <leader>y :YRShow<cr>
 map <Leader><Leader> :ZoomWin<CR>
 
 let g:ctrlp_map = '<Leader>f'
+let g:ctrlp_custom_ignore = 'vendor/dtime_api'
 " map <silent> <Leader>f :LustyJuggler<CR>
 map <silent> <Leader>b :CtrlPBuffer<CR>
 " nnoremap <silent> <F3> :TlistToggle<cr>
@@ -78,6 +123,8 @@ map <silent> <Leader>b :CtrlPBuffer<CR>
 " colorscheme snowblind
 
 let g:solarized_contrast="high"
+" let g:solarized_termtrans=1
+" let g:solarized_termcolors=256
 set background=dark
 set visualbell
 colorscheme solarized
