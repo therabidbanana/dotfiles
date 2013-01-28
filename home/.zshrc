@@ -37,7 +37,7 @@ if [[ -f "$HOME/.amazon_keys" ]]; then
 fi
 
 # Customize to your needs...
-export PATH=$HOME/.rvm/bin:$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/opt/bin:/usr/x86_64-pc-linux-gnu/gcc-bin/4.5.3
+export PATH=$HOME/.cabal/bin:$HOME/.rvm/bin:$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/opt/bin:/usr/x86_64-pc-linux-gnu/gcc-bin/4.5.3
 
 ~/.bin/solarized.sh
 
@@ -48,6 +48,8 @@ export COLORFGBG="default;default"
 export DISABLE_AUTO_TITLE="true"
 export CLICOLOR=1
 alias ttytter="ttytter -verify -ansi -urlopen='echo %U'"  # ttytter in color
+alias jspec="bundle exec jasmine-headless-webkit --color"  # ttytter in color
+
 # For mutt
 export COLORFGBG="default;default"
 
@@ -55,6 +57,8 @@ alias weather='telnet rainmaker.wunderground.com'
 alias ls='ls -G --color'  # OS-X SPECIFIC - the -G command in OS-X is for colors, in Linux it's no groups
 alias ghi='ghi --no-pager'
 alias finch='TERM=screen finch'
+alias fact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
+alias irssi='TERM=screen-256color irssi'
 alias tmux='TERM=screen-256color tmux -2 -u'
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 export LS_COLORS='di=32:fi=34:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rb=90'
@@ -70,18 +74,15 @@ alias df='df -h' # Show disk usage
 alias m='more'
 alias t='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list todo.txt --delete-if-empty'
 alias w='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list to-watch.txt --delete-if-empty'
-alias d='python ~/.bin/t.py --task-dir ~/Desktop/Dropbox --list dtime-todo.txt --delete-if-empty'
 alias g='git'
 alias untar="tar xvzf"
 alias bi="bundle install"
 
-alias x="Xvfb :99 -ac &"
 export DISPLAY=":99"
 
 # Safer
 alias mv="mv -i"
 
-alias h=history
 alias ...="cd ..; cd .."
 
 # -----------------------------------------------------------------
@@ -114,3 +115,6 @@ fi
     echo -ne "$fg[green]"; ddate
     echo -ne "$reset_color"
 
+eval "$(/home/david/dtime/dt/bin/dt init -)"
+# bindkey -s "^[[O" ''                                                                                                                                                                                                                       ▒
+# bindkey -s "^[[I" ''
